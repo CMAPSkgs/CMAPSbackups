@@ -1,0 +1,133 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>CMAPS Manage Assignments</title>
+<link rel="stylesheet" type="text/css" href="/static/new/cmaps_css.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="/static/js/jquery-1.11.3.min.js"></script>
+<link rel="icon" type="image/png" href="/static/new/images/favicon.ico">	
+<style>
+	/* all bellow is css styling for login bar (plz forgive me its messy and inefficient)*/
+::-webkit-input-placeholder { /* Chrome */
+  color: #007DC3;
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+  color: #007DC3;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #007DC3;
+  opacity: 1;
+}
+:-moz-placeholder { /* Firefox 4 - 18 */
+  color: #007DC3;
+  opacity: 1;
+}
+
+#loginbutton {
+    border: 2px solid #000000 ;/*#000000*/
+  font-size: 16px;
+  padding: 10px;
+  outline: none;
+  width: 250px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: white;
+  cursor: pointer;
+  width: 90px; 
+  font-weight: bold;
+  background-color: #999B9E;
+}
+
+#username {
+     border: 2px solid #000000;/*#000000*/
+  font-size: 16px;
+  padding: 10px;
+  outline: none;
+  width: 250px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background: white;
+  width: 200px;
+}
+
+#password {
+     border: 2px solid #000000;/*#000000*/
+  font-size: 16px;
+  padding: 10px;
+  outline: none;
+  width: 250px;
+  border-top: 10px;
+  border-bottom: 10px;
+  background: white;
+  width: 200px;
+}
+/* all above is css styling for login bar (plz forgive me its messy and inefficient)*/
+</style>	
+</head>
+
+<body background="/static/new/images/patterBG.jpg">
+<div align="center">
+   <header>
+    <img src="/static/new/images/headerv5.png" width="80%" >	<label for="show-menu" class="show-menu">Show Menu</label>
+   </header>
+</div>
+<div align="center" id="menu">
+	<input type="checkbox" id="show-menu" role="button">
+    	<ul>
+		<li><a href="/">Home</a></li>
+		<li>
+			<a href="#">Tracking</a>
+			<ul class="hidden">
+				<li><a href="/track_map">View Map</a></li>
+                <li><a href="/track_database">View Database</a></li>
+				<li><a href="/assignments">Assignments</a></li>
+			</ul>
+		</li>
+		<li><a href="https://sites.google.com/a/knox.nsw.edu.au/knox_stem_2015/">Wiki</a></li>
+		<li><a href="/about">About</a></li>
+	</ul>
+</div>
+    <div style="text-align:center;">   
+    <h1 style="color:white;font-family:universltstd;">Assignments</h1>
+    <form method="post" action="/assignments" style="color:white;font-family:universltstd;margin-bottom:30px;" >
+            
+            <input id="username" type="text" name="name" placeholder="Username" style="color:#007DC3;;font-family:universltstd;font-size: 15px;"> <!--style="background-color:white;color:black;font-family:universltstd;"-->
+            
+            
+            <input id="password" type="password" name="password" placeholder="Password" style="color:#007DC3;;font-family:universltstd;font-size: 15px;">
+            
+            <input id="loginbutton" type="submit" value="Login" style="color:black;font-family:universltstd;font-size: 15px;color: #007DC3;">
+        </form>
+
+    {% if is_Valid == True %}
+    <div id="mainContainer" align="center" style="color: white;">
+
+	{% for assignment in assignments %}
+		<div style="margin-bottom: 32px;">
+			<h4 style="text-decoration: underline;">UUID: {! assignment[0] !}</h4>
+			<p><b>Is Vehicle: </b>{% if assignment[1] %}Yes{% else %}No{% end if %}</p>
+			<p><b>Name: </b>{! assignment[2] !}</p>
+		</div>
+	{% end for %}
+
+
+	<hr>
+	<h3>Change Assignment</h3>
+	<form action="/ass/new" method="GET">
+		UUID: <input type="text" name="uuid" /> <br>
+		Name: <input type="text" name="name" /> <br>
+		<!-- Password: <input type="password" name="pass" /> <br> -->
+		<input type="radio" name="typ" value="0">Platoon<br>
+		<input type="radio" name="typ" value="1">Vehicle<br>
+		<input type="submit" value="Create">
+	</form>
+    {% end if %}
+
+
+
+        
+</div>
+</html>
+
