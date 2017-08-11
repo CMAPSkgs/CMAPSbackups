@@ -1,0 +1,3 @@
+UUIDs to Display:
+602
+Length of Trail (seconds):
